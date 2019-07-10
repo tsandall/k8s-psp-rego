@@ -1,0 +1,94 @@
+apiVersion: v1
+items:
+- apiVersion: extensions/v1beta1
+  kind: PodSecurityPolicy
+  metadata:
+    creationTimestamp: 2019-06-16T17:29:34Z
+    name: example
+    resourceVersion: "1413"
+    selfLink: /apis/extensions/v1beta1/podsecuritypolicies/example
+    uid: 4ebd7ffb-905c-11e9-a521-080027881879
+  spec:
+    allowPrivilegeEscalation: true
+    fsGroup:
+      rule: RunAsAny
+    runAsUser:
+      rule: RunAsAny
+    seLinux:
+      rule: RunAsAny
+    supplementalGroups:
+      rule: RunAsAny
+    volumes:
+    - '*'
+- apiVersion: extensions/v1beta1
+  kind: PodSecurityPolicy
+  metadata:
+    annotations:
+      seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
+    creationTimestamp: 2019-06-16T17:18:06Z
+    labels:
+      addonmanager.kubernetes.io/mode: EnsureExists
+    name: privileged
+    resourceVersion: "353"
+    selfLink: /apis/extensions/v1beta1/podsecuritypolicies/privileged
+    uid: b4d1c916-905a-11e9-a521-080027881879
+  spec:
+    allowPrivilegeEscalation: true
+    allowedCapabilities:
+    - '*'
+    fsGroup:
+      rule: RunAsAny
+    hostIPC: true
+    hostNetwork: true
+    hostPID: true
+    hostPorts:
+    - max: 65535
+      min: 0
+    privileged: true
+    runAsUser:
+      rule: RunAsAny
+    seLinux:
+      rule: RunAsAny
+    supplementalGroups:
+      rule: RunAsAny
+    volumes:
+    - '*'
+- apiVersion: extensions/v1beta1
+  kind: PodSecurityPolicy
+  metadata:
+    creationTimestamp: 2019-06-16T17:18:06Z
+    labels:
+      addonmanager.kubernetes.io/mode: EnsureExists
+    name: restricted
+    resourceVersion: "354"
+    selfLink: /apis/extensions/v1beta1/podsecuritypolicies/restricted
+    uid: b4d28140-905a-11e9-a521-080027881879
+  spec:
+    allowPrivilegeEscalation: false
+    fsGroup:
+      ranges:
+      - max: 65535
+        min: 1
+      rule: MustRunAs
+    requiredDropCapabilities:
+    - ALL
+    runAsUser:
+      rule: MustRunAsNonRoot
+    seLinux:
+      rule: RunAsAny
+    supplementalGroups:
+      ranges:
+      - max: 65535
+        min: 1
+      rule: MustRunAs
+    volumes:
+    - configMap
+    - emptyDir
+    - projected
+    - secret
+    - downwardAPI
+    - persistentVolumeClaim
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
